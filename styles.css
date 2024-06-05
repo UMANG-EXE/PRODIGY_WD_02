@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--container-bg);
+    width: 100%;
+    max-width: 400px;
+    margin: 20px;
+    transition: background 0.3s;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+    transform-origin: center;
+}
+
+.sun-and-moon > :is(.moon, .sun) {
+    fill: var(--icon-fill);
+}
+
+.theme-toggle:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) {
+    fill: var(--icon-fill-hover);
+}
+
+.sun-and-moon > .sun-beams {
+    stroke: var(--icon-fill);
+    stroke-width: 2px;
+}
+
+.theme-toggle:is(:hover, :focus-visible) .sun-and-moon > .sun-beams {
+    stroke: var(--icon-fill-hover);
+}
+
+[data-theme="dark"] .sun-and-moon > .sun {
+    transform: scale(1.75);
+}
+
+[data-theme="dark"] .sun-and-moon > .sun-beams {
+    opacity: 0;
+}
+
+[data-theme="dark"] .sun-and-moon > .moon > circle {
+    transform: translateX(-7px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .sun-and-moon > .sun {
+        transition: transform .5s ease;
+    }
+
+    .sun-and-moon > .sun-beams {
+        transition: transform .5s ease, opacity .5s ease;
+    }
+
+    .sun-and-moon .moon > circle {
+        transition: transform .25s ease;
+    }
+
+    [data-theme="dark"] .sun-and-moon > .sun {
+        transition-timing-function: ease;
+        transition-duration: .25s;
+        transform: scale(1.75);
+    }
+
+    [data-theme="dark"] .sun-and-moon > .sun-beams {
+        transition-duration: .15s;
+        transform: rotateZ(-25deg);
+    }
+
+    [data-theme="dark"] .sun-and-moon > .moon > circle {
+        transition-duration: .5s;
+        transition-delay: .25s;
+    }
+}
+
+.display {
+    font-size: 2.5rem;
+    margin: 20px 0;
+    letter-spacing: 2px;
+}
+
+.controls, .settings {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.laps {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.laps li {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--text-color);
+    background-color: var(--lap-bg);
+}
+
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --icon-fill: #000000;
+    --icon-fill-hover: #666666;
+    --container-bg: #f0f0f0;
+    --button-bg: #007bff;
+    --button-text: #ffffff;
+    --button-hover-bg: #0056b3;
+    --button-hover-text: #ffffff;
+    --lap-bg: #f8f8f8;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --icon-fill: #ffffff;
+    --icon-fill-hover: #cccccc;
+    --container-bg: #1e1e1e;
+    --button-bg: #ffeb3b;
+    --button-text: #000000;
+    --button-hover-bg: #c8b900;
+    --button-hover-text: #000000;
+    --lap-bg: #333333;
+}
+
+.laps {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    counter-reset: lap-counter; 
+}
+
+.laps li {
+    padding: 5px 0;
+    background-color: var(--lap-bg);
+    border-bottom: none; 
+}
+
+.laps li:not(:last-child) {
+    margin-bottom: 10px; 
+}
+
+
+.laps li:before {
+    content: "Lap " counter(lap-counter) ": "; 
+    counter-increment: lap-counter; 
+}
